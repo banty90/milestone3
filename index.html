@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>Image Puzzle</title>
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+    <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+    <script src="js/puzzle.js"></script>
+
+<link href='css/image-css.css' rel='stylesheet'>
+</head>
+<body>
+<div id='collage'>
+    <h2>Image Puzzle</h2>
+    <div id='playPanel' style='padding:5px'>
+        <h4 id='imgTitle'></h4>
+        <div style='display:inline-block;margin:auto;width:80%'>
+            <ul id='sortable'></ul>
+            <div id='actualImageBox'>
+                <div id='stepbox'>
+                    <div>Steps: <span class='stepCount'> 0</span></div>
+                </div>
+                <div id='timeBox'>
+                    <div>TimeTaken: <span class='timerCount'> 0</span> secs</div>
+                 </div>
+                 <image id='actualImage'/>
+                 <div> Rearrage picture like above</div>
+                 <div id='levels'>
+                    <input type="radio" name="level" id="easy" checked="checked" value="3" /> <label for="easy">Easy</label>
+                    <input type="radio" name="level" id="medium" value="4" /> <label for="medium">Medium</label>
+                    <input type="radio" name="level" id="hard" value="5" /> <label for="hard">Hard</label>
+                   
+                </div>
+                <div >
+                  <button id="newPhoto" type="button" class="btn">Another Photo</button>
+                   
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id='gameOver' style='display:none'>
+        <div style="background-color: #fc9e9e; padding: 5px 10px 20px 10px; text-align: center; ">
+            <h2 style="text-align:center">Game Over!!</h2>
+            Congratulations!! <br /> You have completed this picture.
+            <br />
+            Steps: <span class="stepCount">0</span> steps.
+            <br />
+            Time Taken: <span class="timerCount">0</span> seconds.<br />
+            <div>
+                <button type="button" onclick="window.location.reload(true);">Play Again</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
+<script>
+        let images = [
+                { src: 'images/london-bridge.jpg', title: 'London Bridge' },
+                { src: 'images/lotus-temple.JPG', title: 'Lotus Temple' },
+                { src: 'images/qutub-minar.jpg', title: 'Qutub Minar' },
+                { src: 'images/statue-of-liberty.jpg', title: 'Statue Of Liberty' },
+                { src: 'images/taj-mahal.jpg', title: 'Taj Mahal' }
+            ]; // Array of images with their source loation.
+//console.log(images[0].src);
+
+$(function(){
+let gridSize=$(":radio[name='level']:checked").val();
+startGame(images, gridSize); // starting game
+                $('#newPhoto').click(function () {
+                    gridSize = $(":radio[name='level']:checked").val();  // Take the updated gridSize from UI.
+                   //console.log(gridsize); 
+                   startGame(images, gridSize);// starting game with new photo
+                });
+
+                $(':radio[name="level"]').change(function (e) {
+                    startGame(images, $(this).val());// start game with level change.
+                });
+});
+
+
+</script>
